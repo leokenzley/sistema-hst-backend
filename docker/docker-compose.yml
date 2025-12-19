@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-hst
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: userhst
+      POSTGRES_PASSWORD: pwdhst
+      POSTGRES_DB: hstdb
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - pgdata-hst:/var/lib/postgresql/data
+
+volumes:
+  pgdata-hst:
+    driver: local
