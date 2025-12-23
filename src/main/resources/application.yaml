@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /hst-backend
+
 spring:
   application:
     name: hsts
@@ -17,3 +21,10 @@ spring:
   sql:
     init:
       mode: never
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+

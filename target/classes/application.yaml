@@ -1,0 +1,30 @@
+server:
+  servlet:
+    context-path: /hst-backend
+
+spring:
+  application:
+    name: hsts
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hstdb
+    username: userhst
+    password: pwdhst
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
