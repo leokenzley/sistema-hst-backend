@@ -3,11 +3,13 @@ package br.com.thstec.hsts.apis;
 import br.com.thstec.hsts.model.projeto.request.ProjetoRequest;
 import br.com.thstec.hsts.model.projeto.response.ProjetoResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "API de Projetos")
 @RequestMapping("/v1/projetos")
 public interface ProjetoAPI {
 

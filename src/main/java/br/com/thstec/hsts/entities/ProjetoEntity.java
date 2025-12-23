@@ -22,6 +22,7 @@ public class ProjetoEntity {
     @Column(name = "nome")
     private String nome;
 
+    @Column(name = "detalhe")
     private String detalhe;
 
     @Column(nullable = false, length = 1)

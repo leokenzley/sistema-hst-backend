@@ -9,17 +9,11 @@ public class StatusEnumConverter implements AttributeConverter<StatusEnum, Strin
 
     @Override
     public String convertToDatabaseColumn(StatusEnum status) {
-        return status == null ? null : status.getCodigo();
+        return status != null ? status.getCodigo() : null;
     }
 
     @Override
     public StatusEnum convertToEntityAttribute(String dbValue) {
-        if (dbValue == null) return null;
-
-        return switch (dbValue) {
-            case "A" -> StatusEnum.ATIVO;
-            case "I" -> StatusEnum.INATIVO;
-            default -> throw new IllegalArgumentException("Status inválido: " + dbValue);
-        };
+        return StatusEnum.fromCodigo(dbValue);
     }
 }

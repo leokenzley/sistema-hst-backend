@@ -23,7 +23,8 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public ProjetoResponse created(ProjetoRequest request) {
         ProjetoEntity entity = mapper.toEntity(request);
-        return mapper.toResponse(repository.save(entity));
+        var created = repository.save(entity);
+        return mapper.toResponse(created);
     }
 
     @Override
