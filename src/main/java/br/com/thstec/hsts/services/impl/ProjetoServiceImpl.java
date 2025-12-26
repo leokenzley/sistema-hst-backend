@@ -30,7 +30,7 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public ProjetoResponse update(Long id, ProjetoRequest request) {
         ProjetoEntity entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Projeto não encontrado"));
 
         entity.setNome(request.nome());
         entity.setDetalhe(request.detalhe());
