@@ -16,7 +16,12 @@ import java.time.LocalDate;
 public class OrcamentoRequisitoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tb_orc_req_seq")
+    @SequenceGenerator(
+            name = "tb_orc_req_seq",
+            sequenceName = "tb_orc_req_seq",
+            allocationSize = 1
+    )
     private Long id;
 
     @Column(nullable = false, columnDefinition = "text")

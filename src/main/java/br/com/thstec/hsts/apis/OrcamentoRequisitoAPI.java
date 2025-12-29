@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "API Orçamento Requisito")
-@RequestMapping("/orcamentos-requisitos")
+@RequestMapping("/v1ç/orcamentos-requisitos")
 public interface OrcamentoRequisitoAPI {
 
     @PostMapping
