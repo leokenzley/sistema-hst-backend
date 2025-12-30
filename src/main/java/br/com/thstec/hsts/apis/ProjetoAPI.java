@@ -31,6 +31,8 @@ public interface ProjetoAPI {
     ResponseEntity<ProjetoResponse> findById(@PathVariable Long id);
 
     @Operation(summary = "Listar projetos ativos paginados")
-    @GetMapping
-    ResponseEntity<Page<ProjetoResponse>> getPaginated(Pageable pageable);
+    @GetMapping("/paginated")
+    ResponseEntity<Page<ProjetoResponse>> getPaginated(
+            @RequestParam(name = "status", required = false) String status,
+            Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package br.com.thstec.hsts.apis.controllers;
 
 import br.com.thstec.hsts.apis.ProjetoAPI;
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.projeto.request.ProjetoRequest;
 import br.com.thstec.hsts.model.projeto.response.ProjetoResponse;
 import br.com.thstec.hsts.services.ProjetoService;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 @RestController
 public class ProjetoController implements ProjetoAPI {
@@ -38,8 +41,9 @@ public class ProjetoController implements ProjetoAPI {
     }
 
     @Override
-    public ResponseEntity<Page<ProjetoResponse>> getPaginated(Pageable pageable) {
-        return ResponseEntity.ok(service.getPaginated(pageable));
+    public ResponseEntity<Page<ProjetoResponse>> getPaginated(String status, Pageable pageable) {
+        var statusEnum = Objects.nonNull(status) ? StatusEnum.fromCodigo(status) : null;
+        return ResponseEntity.ok(service.getPaginated(statusEnum, pageable));
     }
 }
 

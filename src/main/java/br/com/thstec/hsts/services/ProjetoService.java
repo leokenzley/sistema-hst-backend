@@ -1,5 +1,6 @@
 package br.com.thstec.hsts.services;
 
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.projeto.request.ProjetoRequest;
 import br.com.thstec.hsts.model.projeto.response.ProjetoResponse;
 import org.springframework.data.domain.Page;
@@ -15,5 +16,5 @@ public interface ProjetoService {
 
     ProjetoResponse findById(Long id);
 
-    Page<ProjetoResponse> getPaginated(Pageable pageable);
+    Page<ProjetoResponse> getPaginated(StatusEnum status, Pageable pageable);
 }

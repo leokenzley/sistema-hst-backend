@@ -55,8 +55,8 @@ public class ProjetoServiceImpl implements ProjetoService {
     }
 
     @Override
-    public Page<ProjetoResponse> getPaginated(Pageable pageable) {
-        return repository.findByStatusOrderByNomeAsc(StatusEnum.ATIVO, pageable)
+    public Page<ProjetoResponse> getPaginated(StatusEnum status, Pageable pageable) {
+        return repository.findByStatusOrderByNomeAsc(status, pageable)
                 .map(mapper::toResponse);
     }
 }
