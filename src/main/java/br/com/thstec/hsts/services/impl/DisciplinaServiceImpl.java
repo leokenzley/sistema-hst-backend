@@ -57,8 +57,8 @@ public class DisciplinaServiceImpl implements DisciplinaService {
     }
 
     @Override
-    public Page<DisciplinaResponse> getPaginated(Pageable pageable) {
-        return repository.findByStatus(StatusEnum.ATIVO, pageable)
+    public Page<DisciplinaResponse> getPaginated(StatusEnum status, Pageable pageable) {
+        return repository.findByStatus(status, pageable)
                 .map(mapper::toResponse);
     }
 }

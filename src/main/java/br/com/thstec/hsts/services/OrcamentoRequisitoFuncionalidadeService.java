@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface OrcamentoRequisitoFuncionalidadeService {
 
-    OrcamentoRequisitoFuncionalidadeResponse created(OrcamentoRequisitoFuncionalidadeRequest request);
+    OrcamentoRequisitoFuncionalidadeResponse create(OrcamentoRequisitoFuncionalidadeRequest request);
 
     OrcamentoRequisitoFuncionalidadeResponse update(Long id, OrcamentoRequisitoFuncionalidadeRequest request);
 

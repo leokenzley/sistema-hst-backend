@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface OrcamentoRequisitoService {
 
-    OrcamentoRequisitoResponse created(OrcamentoRequisitoRequest request);
+    OrcamentoRequisitoResponse create(OrcamentoRequisitoRequest request);
 
     OrcamentoRequisitoResponse update(Long id, OrcamentoRequisitoRequest request);
 

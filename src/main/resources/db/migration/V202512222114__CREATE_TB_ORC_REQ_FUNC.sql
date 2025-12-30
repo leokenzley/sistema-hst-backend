@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS tb_orc_req_func (
     comprovante TEXT null,
     qt_hst NUMERIC (10,2) NOT NULL,
     vl_fi NUMERIC (10,2) NOT NULL,
+    username varchar(255) NOT NULL,
+    status CHAR(1) NOT NULL,
     CONSTRAINT fk_tb_orc_req_orc_rec_func
         FOREIGN KEY (orc_req_id)
         REFERENCES tb_orc_req(id),

@@ -28,5 +28,5 @@ public interface DisciplinaAPI {
     ResponseEntity<DisciplinaResponse> findById(@PathVariable Long id);
 
     @GetMapping("/paginated")
-    ResponseEntity<Page<DisciplinaResponse>> getPaginated(Pageable pageable);
+    ResponseEntity<Page<DisciplinaResponse>> getPaginated(@RequestParam("status")  String status, Pageable pageable);
 }

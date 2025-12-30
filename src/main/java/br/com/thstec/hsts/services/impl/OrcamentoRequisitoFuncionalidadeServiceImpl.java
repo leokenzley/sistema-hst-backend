@@ -24,8 +24,9 @@ public class OrcamentoRequisitoFuncionalidadeServiceImpl
     private final TarefaRepository tarefaRepository;
 
     @Override
-    public OrcamentoRequisitoFuncionalidadeResponse created(OrcamentoRequisitoFuncionalidadeRequest request) {
+    public OrcamentoRequisitoFuncionalidadeResponse create(OrcamentoRequisitoFuncionalidadeRequest request) {
         var entity = mapper.toEntity(request);
+        entity.setUsername("undefined@thstec.info.br");
         return mapper.toResponse(repository.save(entity));
     }
 

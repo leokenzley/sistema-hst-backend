@@ -17,6 +17,8 @@ public interface OrcamentoRequisitoMapper {
     OrcamentoRequisitoEntity toEntity(OrcamentoRequisitoRequest request);
 
     @Mapping(target = "status", expression = "java(setStatus(entity))")
+    @Mapping(target = "sprintId", expression = "java(setSprintId(entity))")
+    @Mapping(target = "sprintNumero", expression = "java(setSprintNumero(entity))")
     OrcamentoRequisitoResponse toResponse(OrcamentoRequisitoEntity entity);
 
     default StatusEnum setStatus(OrcamentoRequisitoRequest request){
@@ -31,5 +33,19 @@ public interface OrcamentoRequisitoMapper {
             return null;
 
         return entity.getStatus().getCodigo();
+    }
+
+    default Long setSprintId(OrcamentoRequisitoEntity entity){
+        if(entity == null || entity.getSprint() == null)
+            return null;
+
+        return entity.getSprint().getId();
+    }
+
+    default Integer setSprintNumero(OrcamentoRequisitoEntity entity){
+        if(entity == null || entity.getSprint() == null)
+            return null;
+
+        return entity.getSprint().getNumero();
     }
 }

@@ -3,6 +3,7 @@ package br.com.thstec.hsts.mappers;
 import br.com.thstec.hsts.entities.DisciplinaEntity;
 import br.com.thstec.hsts.model.disciplina.request.DisciplinaRequest;
 import br.com.thstec.hsts.model.disciplina.response.DisciplinaResponse;
+import br.com.thstec.hsts.model.enumerations.DisciplinaTipoFuncaoEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.projeto.request.ProjetoRequest;
 import org.mapstruct.Mapper;
@@ -16,6 +17,7 @@ public interface DisciplinaMapper {
     DisciplinaEntity toEntity(DisciplinaRequest request);
 
     @Mapping(target = "status", expression = "java(setStatus(entity))")
+    @Mapping(target = "tpFuncao", expression = "java(setTpFuncao(entity))")
     DisciplinaResponse toResponse(DisciplinaEntity entity);
 
     default StatusEnum setStatus(DisciplinaRequest request){
@@ -31,4 +33,12 @@ public interface DisciplinaMapper {
 
         return entity.getStatus().getCodigo();
     }
+
+    default DisciplinaTipoFuncaoEnum setTpFuncao(DisciplinaEntity entity){
+        if(entity == null)
+            return null;
+
+        return entity.getTpFuncao();
+    }
+
 }

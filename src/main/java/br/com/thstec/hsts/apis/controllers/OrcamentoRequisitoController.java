@@ -18,7 +18,7 @@ public class OrcamentoRequisitoController implements OrcamentoRequisitoAPI {
 
     @Override
     public ResponseEntity<OrcamentoRequisitoResponse> create(OrcamentoRequisitoRequest request) {
-        return ResponseEntity.ok(service.created(request));
+        return ResponseEntity.ok(service.create(request));
     }
 
     @Override

@@ -24,10 +24,16 @@ public class OrcamentoRequisitoServiceImpl implements OrcamentoRequisitoService 
     private final SprintRepository sprintRepository;
 
     @Override
-    public OrcamentoRequisitoResponse created(OrcamentoRequisitoRequest request) {
-        OrcamentoRequisitoEntity entity = mapper.toEntity(request);
-        entity.setStatus(StatusEnum.ATIVO);
-        return mapper.toResponse(repository.save(entity));
+    public OrcamentoRequisitoResponse create(OrcamentoRequisitoRequest request) {
+        try {
+            var sprint = sprintRepository.findById(request.sprintId())
+                    .orElseThrow(() -> new NotFoundException("Sprint não encontrada"));
+            OrcamentoRequisitoEntity entity = mapper.toEntity(request);
+            entity.setSprint(sprint);
+            return mapper.toResponse(repository.save(entity));
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override

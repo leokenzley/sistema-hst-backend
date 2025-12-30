@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public record OrcamentoRequisitoResponse(
         Long id,
         Long sprintId,
+        Integer sprintNumero,
         String requisito,
         String detalhe,
         LocalDate dtInicio,

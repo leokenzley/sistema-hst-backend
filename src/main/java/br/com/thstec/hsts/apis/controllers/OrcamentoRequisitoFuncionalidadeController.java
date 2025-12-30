@@ -18,7 +18,7 @@ public class OrcamentoRequisitoFuncionalidadeController
 
     @Override
     public OrcamentoRequisitoFuncionalidadeResponse created(OrcamentoRequisitoFuncionalidadeRequest request) {
-        return service.created(request);
+        return service.create(request);
     }
 
     @Override

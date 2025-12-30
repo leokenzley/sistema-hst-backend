@@ -1,5 +1,6 @@
 package br.com.thstec.hsts.entities;
 
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,5 +43,11 @@ public class OrcamentoRequisitoFuncionalidadeEntity {
 
     @Column(name = "vl_fi", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorFinal;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false, length = 1)
+    private StatusEnum status;
 }
 

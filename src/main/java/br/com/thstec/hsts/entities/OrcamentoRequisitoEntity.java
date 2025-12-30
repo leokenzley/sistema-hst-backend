@@ -1,5 +1,6 @@
 package br.com.thstec.hsts.entities;
 
+import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,6 +47,20 @@ public class OrcamentoRequisitoEntity {
     @JoinColumn(name = "sprint_id", nullable = false)
     private SprintEntity sprint;
 
-    //TODO - Funcao
+    /**
+     * TODO Adicionar o status do requisito
+     * pensando em alguma coisa como quando o requisito não estiver finalizado e outra sprint for criada,
+     * levar os requisitos para a nova sprint automaticamente
+     */
+    /**
+    @Enumerated(EnumType.STRING)
+    private RequisitoStatusEnum requisitoStatus;
+    */
+    /**
+     *  TODO manter um histórico sobre o requisito como documentação do aconteceu com ele
+     private List<HistoricoOrcamentoRequisito> historicos
+     */
+
+
 }
 
