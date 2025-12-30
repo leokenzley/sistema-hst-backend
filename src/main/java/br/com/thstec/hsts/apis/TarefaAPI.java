@@ -28,7 +28,7 @@ public interface TarefaAPI {
     @GetMapping("/{id}")
     TarefaResponse findById(@PathVariable Long id);
 
-    @GetMapping
+    @GetMapping("/paginated")
     Page<TarefaResponse> getPaginated(
             Pageable pageable,
             @RequestParam(value = "status", required = false) String status,
