@@ -1,5 +1,7 @@
 package br.com.thstec.hsts.model.tarefa.request;
 
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
+
 import java.math.BigDecimal;
 
 public record TarefaRequest(
@@ -9,7 +11,7 @@ public record TarefaRequest(
         String detalhe,
         String fatorImpacto,
         String memoriaCalculo,
-        String status,
+        StatusEnum status,
         Long disciplinaId
 ) {
 }

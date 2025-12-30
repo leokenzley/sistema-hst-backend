@@ -1,5 +1,8 @@
 package br.com.thstec.hsts.model.tarefa.response;
 
+import br.com.thstec.hsts.model.enumerations.DisciplinaTipoFuncaoEnum;
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
+
 import java.math.BigDecimal;
 
 public record TarefaResponse(
@@ -10,7 +13,9 @@ public record TarefaResponse(
         String detalhe,
         String fatorImpacto,
         String memoriaCalculo,
-        String status,
-        Long disciplinaId
+        StatusEnum status,
+        Long disciplinaId,
+        String disciplina,
+        DisciplinaTipoFuncaoEnum disciplinaTpFuncao
 ) {
 }

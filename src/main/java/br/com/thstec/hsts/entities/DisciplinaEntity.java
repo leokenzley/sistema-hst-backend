@@ -1,5 +1,6 @@
 package br.com.thstec.hsts.entities;
 
+import br.com.thstec.hsts.model.enumerations.DisciplinaTipoFuncaoEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,6 +28,7 @@ public class DisciplinaEntity {
     @Column(nullable = false, length = 1)
     private StatusEnum status;
 
-    @Column(name = "tp_funcao", nullable = false, length = 255)
-    private String tpFuncao;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tp_funcao", nullable = false)
+    private DisciplinaTipoFuncaoEnum tpFuncao;
 }

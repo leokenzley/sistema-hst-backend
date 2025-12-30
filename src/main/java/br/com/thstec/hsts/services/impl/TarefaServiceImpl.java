@@ -2,6 +2,8 @@ package br.com.thstec.hsts.services.impl;
 
 import br.com.thstec.hsts.entities.TarefaEntity;
 import br.com.thstec.hsts.mappers.TarefaMapper;
+import br.com.thstec.hsts.model.enumerations.DisciplinaTipoFuncaoEnum;
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.tarefa.request.TarefaRequest;
 import br.com.thstec.hsts.model.tarefa.response.TarefaResponse;
 import br.com.thstec.hsts.repositories.DisciplinaRepository;
@@ -9,8 +11,12 @@ import br.com.thstec.hsts.repositories.TarefaRepository;
 import br.com.thstec.hsts.services.TarefaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -58,9 +64,22 @@ public class TarefaServiceImpl implements TarefaService {
     }
 
     @Override
-    public Page<TarefaResponse> getPaginated(Pageable pageable) {
-        return repository.findAll(pageable)
-                .map(mapper::toResponse);
+    public Page<TarefaResponse> getPaginated(Pageable pageable, StatusEnum status, DisciplinaTipoFuncaoEnum tpFuncao) {
+        var paginated = repository.getPaginated(pageable, status, tpFuncao);
+        return new PageImpl<>(
+                paginated
+                        .getContent()
+                        .stream()
+                        .map(mapper::toResponse)
+                        .toList(), pageable,  paginated.getTotalElements());
+    }
+
+    @Override
+    public List<TarefaResponse> getListed(StatusEnum status, DisciplinaTipoFuncaoEnum tpFuncao) {
+        return repository.getListByStatus(status, tpFuncao)
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 }
 

@@ -19,7 +19,6 @@ public enum StatusEnum {
         return codigo;
     }
 
-    @JsonCreator
     public static StatusEnum fromCodigo(String codigo) {
         for (StatusEnum status : values()) {
             if (status.codigo.equalsIgnoreCase(codigo)) {

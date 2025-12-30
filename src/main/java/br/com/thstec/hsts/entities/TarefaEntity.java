@@ -1,5 +1,6 @@
 package br.com.thstec.hsts.entities;
 
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,7 +43,7 @@ public class TarefaEntity {
     private String memoriaCalculo;
 
     @Column(nullable = false, length = 1)
-    private String status;
+    private StatusEnum status;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "disciplina_id", nullable = false)
