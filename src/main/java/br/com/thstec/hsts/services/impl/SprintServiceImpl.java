@@ -1,22 +1,29 @@
 package br.com.thstec.hsts.services.impl;
 
-import br.com.thstec.hsts.entities.ProjetoEntity;
+import br.com.thstec.hsts.entities.HistoricoOrcamentoRequisitoEntity;
 import br.com.thstec.hsts.entities.SprintEntity;
 import br.com.thstec.hsts.exceptions.commons.NotFoundException;
 import br.com.thstec.hsts.mappers.SprintMapper;
+import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.sprint.request.SprintRequest;
 import br.com.thstec.hsts.model.sprint.response.SprintResponse;
+import br.com.thstec.hsts.repositories.HistoricoOrcamentoRequisitoRepository;
+import br.com.thstec.hsts.repositories.OrcamentoRequisitoRepository;
 import br.com.thstec.hsts.repositories.ProjetoRepository;
 import br.com.thstec.hsts.repositories.SprintRepository;
 import br.com.thstec.hsts.services.SprintService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,13 +33,51 @@ public class SprintServiceImpl implements SprintService {
     private final SprintRepository repository;
     private final SprintMapper mapper;
     private final ProjetoRepository projetoRepository;
+    private final OrcamentoRequisitoRepository orcamentoRequisitoRepository;
+    private final HistoricoOrcamentoRequisitoRepository historicoOrcamentoRequisitoRepository;
 
+    @Transactional
     @Override
     public SprintResponse create(SprintRequest request) {
-        SprintEntity entity = mapper.toEntity(request);
-        entity.setProjeto(projetoRepository.findById(request.projetoId())
-                .orElseThrow(() -> new NotFoundException(SPRINT_NAO_ENCONTRADA)));
-        return mapper.toResponse(repository.save(entity));
+        try {
+            SprintEntity entity = mapper.toEntity(request);
+            entity.setProjeto(projetoRepository.findById(request.projetoId())
+                    .orElseThrow(() -> new NotFoundException(SPRINT_NAO_ENCONTRADA)));
+            Optional<SprintEntity> ultimaSprintOptional = repository.findLastSprintByProjetoId(request.projetoId());
+
+            var created = repository.save(entity);
+
+            if(request.migrarReq() && !ultimaSprintOptional.isEmpty()){
+                migraRequisitosNaoValidados(created, ultimaSprintOptional.get());
+            }
+
+            return mapper.toResponse(created);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void migraRequisitosNaoValidados(SprintEntity created, SprintEntity ultimaSprint) {
+
+        var requisitosNaoValidadosList =
+                orcamentoRequisitoRepository
+                        .findAllBySprintIdToMigrate(ultimaSprint.getId());
+
+        requisitosNaoValidadosList.forEach(x->{
+            x.setSprint(created);
+            orcamentoRequisitoRepository.save(x);
+            historicoOrcamentoRequisitoRepository
+                    .save(
+                            HistoricoOrcamentoRequisitoEntity
+                                    .builder()
+                                    .dtCreated(LocalDateTime.now())
+                                    .orcamentoRequisito(x)
+                                    .observacao("Requisito migrado da Sprint: %s para Sprint: %s".formatted(
+                                            ultimaSprint.getNumero().toString(),
+                                            created.getNumero().toString()))
+                                    .build()
+                    );
+        });
     }
 
     @Override

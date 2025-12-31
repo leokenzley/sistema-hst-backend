@@ -30,7 +30,8 @@
  - Criar os requisitos nas sprints
  - Criar as funcionalidades dos requisitos de acordo com o catálogo
  - Aprovar os requisitos.
- - **TODO** 
-   - Manter o histórico dos requisitos.
-   - Migrar os requisitos não aprovados para a nova sprint.
+ - Manter o histórico dos requisitos.
+ - Migrar os requisitos não aprovados para a nova sprint.
+- **TODO** 
    - Atenticação e autorização com o Keycloak da ths.
+   - Gerar relatório

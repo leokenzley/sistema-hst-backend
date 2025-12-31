@@ -7,7 +7,7 @@ package br.com.thstec.hsts.model.enumerations;
  *     COBRADO = Planilha foi finalizada e o requisito foi cobrado
  */
 public enum RequisitoStatusEnum {
-    INICIADO,
+    CRIADO,
     PENDENTE_VALIDACAO,
     VALIDADO,
     COBRADO;

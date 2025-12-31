@@ -10,6 +10,7 @@ public record SprintRequest(
         LocalDate dtInicio,
         LocalDate dtFim,
         Long projetoId,
-        StatusEnum status
+        StatusEnum status,
+        Boolean migrarReq
 ) {
 }

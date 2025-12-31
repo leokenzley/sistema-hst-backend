@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS tb_orc_req (
     dt_fim DATE null,
     dt_finalizada DATE,
     status CHAR(1) NOT NULL,
+    requisito_status varchar(100) NOT NULL DEFAULT 'CRIADO',
     CONSTRAINT fk_tb_sprint_orc_req
         FOREIGN KEY (sprint_id)
         REFERENCES tb_sprint(id)

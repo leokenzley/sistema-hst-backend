@@ -4,6 +4,7 @@ import br.com.thstec.hsts.entities.OrcamentoRequisitoEntity;
 import br.com.thstec.hsts.entities.SprintEntity;
 import br.com.thstec.hsts.exceptions.commons.NotFoundException;
 import br.com.thstec.hsts.mappers.OrcamentoRequisitoMapper;
+import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.orcamento_requisito.request.OrcamentoRequisitoRequest;
 import br.com.thstec.hsts.model.orcamento_requisito.response.OrcamentoRequisitoResponse;
@@ -29,6 +30,7 @@ public class OrcamentoRequisitoServiceImpl implements OrcamentoRequisitoService 
             var sprint = sprintRepository.findById(request.sprintId())
                     .orElseThrow(() -> new NotFoundException("Sprint não encontrada"));
             OrcamentoRequisitoEntity entity = mapper.toEntity(request);
+            entity.setRequisitoStatus(RequisitoStatusEnum.CRIADO);
             entity.setSprint(sprint);
             return mapper.toResponse(repository.save(entity));
         }catch (Exception e){
