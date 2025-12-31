@@ -1,10 +1,19 @@
 <!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
 <jasperReport name="RelatorioSprint" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23c41f9a-2ffc-4cb6-a0ab-93b98d9799e9">
+	<parameter name="LOGO" class="java.io.InputStream"/>
+	<parameter name="SPRINT_NUMERO" class="java.lang.Integer"/>
+	<parameter name="PROJETO_NOME" class="java.lang.String"/>
 	<query language="sql"><![CDATA[]]></query>
 	<background splitType="Stretch"/>
-	<title height="86" splitType="Stretch">
-		<element kind="staticText" uuid="a695f1d8-ac10-4067-8a51-4e0a122318aa" x="170" y="20" width="100" height="30">
-			<text><![CDATA[TGeste]]></text>
+	<title height="95" splitType="Stretch">
+		<element kind="textField" uuid="bccc783a-e1fe-40d3-9e36-ed944cd7ed9a" x="170" y="0" width="375" height="40" fontName="Arial" fontSize="33.0" bold="true" hTextAlign="Left">
+			<expression><![CDATA["Relatório Sprint " + $P{SPRINT_NUMERO}]]></expression>
+		</element>
+		<element kind="image" uuid="34f949ba-573e-4dc0-b50f-38b34b93ee79" x="0" y="0" width="160" height="80">
+			<expression><![CDATA[$P{LOGO}]]></expression>
+		</element>
+		<element kind="textField" uuid="fdae371f-ad6e-4c10-aa56-89829826c5c4" x="170" y="40" width="375" height="40" fontSize="16.0" bold="true" hTextAlign="Left">
+			<expression><![CDATA["Projeto: " + $P{PROJETO_NOME}]]></expression>
 		</element>
 	</title>
 	<pageHeader height="35" splitType="Stretch"/>
