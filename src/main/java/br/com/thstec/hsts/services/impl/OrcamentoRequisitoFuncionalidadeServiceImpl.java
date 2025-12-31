@@ -1,6 +1,8 @@
 package br.com.thstec.hsts.services.impl;
 
 import br.com.thstec.hsts.entities.OrcamentoRequisitoFuncionalidadeEntity;
+import br.com.thstec.hsts.entities.TarefaEntity;
+import br.com.thstec.hsts.exceptions.commons.BusinessException;
 import br.com.thstec.hsts.mappers.OrcamentoRequisitoFuncionalidadeMapper;
 import br.com.thstec.hsts.model.orcamento_requisito_funcionalidade.request.OrcamentoRequisitoFuncionalidadeRequest;
 import br.com.thstec.hsts.model.orcamento_requisito_funcionalidade.response.OrcamentoRequisitoFuncionalidadeResponse;
@@ -12,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +29,36 @@ public class OrcamentoRequisitoFuncionalidadeServiceImpl
 
     @Override
     public OrcamentoRequisitoFuncionalidadeResponse create(OrcamentoRequisitoFuncionalidadeRequest request) {
-        var entity = mapper.toEntity(request);
-        entity.setUsername("undefined@thstec.info.br");
-        return mapper.toResponse(repository.save(entity));
+        try {
+            var entity = mapper.toEntity(request);
+            var tarefa = tarefaRepository.findById(entity.getTarefa().getId())
+                    .orElseThrow(() -> new RuntimeException("Registro não encontrado"));
+            validaFuncionalidadeSemValorReferencia(request, tarefa);
+            calculaValorFinalHSTValorReferencia(request, tarefa, entity);
+            entity.setUsername("undefined@thstec.info.br"); // TODO trocar pelo username do usuário logado
+            return mapper.toResponse(repository.save(entity));
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private void calculaValorFinalHSTValorReferencia(OrcamentoRequisitoFuncionalidadeRequest request, TarefaEntity tarefa, OrcamentoRequisitoFuncionalidadeEntity entity) {
+        if(request.valorFinal() == null && tarefa != null && tarefa.getValorHistoricoReferencia() != null) {
+            entity.setValorFinal(calculaHstTarefa(entity, tarefa.getValorHistoricoReferencia()));
+        }
+    }
+
+    private static void validaFuncionalidadeSemValorReferencia(OrcamentoRequisitoFuncionalidadeRequest request, TarefaEntity tarefa) {
+        if(tarefa.getValorHistoricoReferencia() == null && request.valorFinal() == null){
+            throw new BusinessException("Valor final obrigatório para a tarefa %s"
+                    .formatted(tarefa.getId().toString().concat("-").concat(tarefa.getNome())));
+        }
+    }
+
+    private BigDecimal calculaHstTarefa(OrcamentoRequisitoFuncionalidadeEntity entity, BigDecimal valorReferencia) {
+        return entity.getQuantidadeHoras().multiply(valorReferencia);
     }
 
     @Override
@@ -45,8 +76,9 @@ public class OrcamentoRequisitoFuncionalidadeServiceImpl
         entity.setObservacao(request.observacao());
         entity.setComprovante(request.comprovante());
         entity.setQuantidadeHoras(request.quantidadeHoras());
-        entity.setValorFinal(request.valorFinal());
-
+        validaFuncionalidadeSemValorReferencia(request, tarefa);
+        calculaValorFinalHSTValorReferencia(request, tarefa, entity);
+        entity.setUsername("undefined@thstec.info.br"); // TODO trocar pelo username do usuário logado
         return mapper.toResponse(repository.save(entity));
     }
 
@@ -63,8 +95,8 @@ public class OrcamentoRequisitoFuncionalidadeServiceImpl
     }
 
     @Override
-    public Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Pageable pageable) {
-        return repository.findAll(pageable).map(mapper::toResponse);
+    public Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Long orcamentoRequisitoId, Pageable pageable) {
+        return repository.getPaginatedByOrcamentoRequisitoId(orcamentoRequisitoId, pageable).map(mapper::toResponse);
     }
 
 }

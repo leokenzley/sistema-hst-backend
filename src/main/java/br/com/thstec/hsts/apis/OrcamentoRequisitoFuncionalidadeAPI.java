@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "API Orçamento Requisito Funcionalidades")
-@RequestMapping("/orcamentos-requisitos-funcionalidades")
+@RequestMapping("/v1/orcamentos-requisitos-funcionalidades")
 public interface OrcamentoRequisitoFuncionalidadeAPI {
 
     @PostMapping
@@ -28,7 +28,9 @@ public interface OrcamentoRequisitoFuncionalidadeAPI {
     @GetMapping("/{id}")
     OrcamentoRequisitoFuncionalidadeResponse findById(@PathVariable Long id);
 
-    @GetMapping
-    Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Pageable pageable);
+    @GetMapping("/orcamento-requisito/{orcamentoRequisitoId}/paginated")
+    Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(
+            @PathVariable("orcamentoRequisitoId") Long orcamentoRequisitoId,
+            Pageable pageable);
 }
 

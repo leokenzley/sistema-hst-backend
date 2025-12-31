@@ -15,6 +15,6 @@ public interface OrcamentoRequisitoFuncionalidadeService {
 
     OrcamentoRequisitoFuncionalidadeResponse findById(Long id);
 
-    Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Pageable pageable);
+    Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Long orcamentoRequisitoId, Pageable pageable);
 }
 

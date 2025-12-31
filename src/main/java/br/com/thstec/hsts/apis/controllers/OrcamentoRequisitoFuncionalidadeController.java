@@ -37,8 +37,8 @@ public class OrcamentoRequisitoFuncionalidadeController
     }
 
     @Override
-    public Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Pageable pageable) {
-        return service.getPaginated(pageable);
+    public Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Long orcamentoRequisitoId, Pageable pageable) {
+        return service.getPaginated(orcamentoRequisitoId, pageable);
     }
 }
 

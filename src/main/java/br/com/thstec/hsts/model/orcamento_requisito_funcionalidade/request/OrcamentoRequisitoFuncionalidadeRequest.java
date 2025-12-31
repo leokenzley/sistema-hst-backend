@@ -1,5 +1,7 @@
 package br.com.thstec.hsts.model.orcamento_requisito_funcionalidade.request;
 
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
+
 import java.math.BigDecimal;
 
 public record OrcamentoRequisitoFuncionalidadeRequest(
@@ -8,6 +10,7 @@ public record OrcamentoRequisitoFuncionalidadeRequest(
         String observacao,
         String comprovante,
         BigDecimal quantidadeHoras,
-        BigDecimal valorFinal
+        BigDecimal valorFinal,
+        StatusEnum status
 ) {
 }
