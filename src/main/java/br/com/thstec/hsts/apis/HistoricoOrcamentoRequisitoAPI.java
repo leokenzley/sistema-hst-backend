@@ -5,6 +5,7 @@ import br.com.thstec.hsts.model.historico_orcamento_requisito.response.Historico
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "API Histórico Orçamento Requisito")
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public interface HistoricoOrcamentoRequisitoAPI {
 
     @PostMapping
-    HistoricoOrcamentoRequisitoResponse create(
+    ResponseEntity<HistoricoOrcamentoRequisitoResponse> create(
             @RequestBody HistoricoOrcamentoRequisitoRequest request
     );
 
     @GetMapping("/orcamento-requisito/{orcamentoRequisitoId}/paginated")
-    Page<HistoricoOrcamentoRequisitoResponse> getPaginated(
+    ResponseEntity<Page<HistoricoOrcamentoRequisitoResponse>> getPaginated(
             @PathVariable(value = "orcamentoRequisitoId") Long orcamentoRequisitoId,
             Pageable pageable);
 }

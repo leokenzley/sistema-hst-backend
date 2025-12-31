@@ -6,6 +6,7 @@ import br.com.thstec.hsts.model.tarefa.response.TarefaResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +15,10 @@ import java.util.List;
 @RequestMapping("/v1/tarefas")
 public interface TarefaAPI {
     @PostMapping
-    TarefaResponse created(@RequestBody TarefaRequest request);
+    ResponseEntity<TarefaResponse> created(@RequestBody TarefaRequest request);
 
     @PutMapping("/{id}")
-    TarefaResponse update(
+    ResponseEntity<TarefaResponse> update(
             @PathVariable Long id,
             @RequestBody TarefaRequest request
     );
@@ -26,16 +27,16 @@ public interface TarefaAPI {
     void deleteById(@PathVariable Long id);
 
     @GetMapping("/{id}")
-    TarefaResponse findById(@PathVariable Long id);
+    ResponseEntity<TarefaResponse> findById(@PathVariable Long id);
 
     @GetMapping("/paginated")
-    Page<TarefaResponse> getPaginated(
+    ResponseEntity<Page<TarefaResponse>> getPaginated(
             Pageable pageable,
             @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "tpFuncao", required = false) DisciplinaTipoFuncaoEnum tpFuncao);
 
     @GetMapping("/list")
-    List<TarefaResponse> getListed(
+    ResponseEntity<List<TarefaResponse>> getListed(
             @RequestParam(name = "status", required = false) String status,
             @RequestParam(name = "tpFuncao", required = false) DisciplinaTipoFuncaoEnum tpFuncao
             );

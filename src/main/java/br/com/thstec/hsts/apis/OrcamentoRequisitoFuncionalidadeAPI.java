@@ -5,6 +5,7 @@ import br.com.thstec.hsts.model.orcamento_requisito_funcionalidade.response.Orca
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "API Orçamento Requisito Funcionalidades")
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public interface OrcamentoRequisitoFuncionalidadeAPI {
 
     @PostMapping
-    OrcamentoRequisitoFuncionalidadeResponse created(
+    ResponseEntity<OrcamentoRequisitoFuncionalidadeResponse> created(
             @RequestBody OrcamentoRequisitoFuncionalidadeRequest request
     );
 
     @PutMapping("/{id}")
-    OrcamentoRequisitoFuncionalidadeResponse update(
+    ResponseEntity<OrcamentoRequisitoFuncionalidadeResponse> update(
             @PathVariable Long id,
             @RequestBody OrcamentoRequisitoFuncionalidadeRequest request
     );
@@ -26,10 +27,10 @@ public interface OrcamentoRequisitoFuncionalidadeAPI {
     void deleteById(@PathVariable Long id);
 
     @GetMapping("/{id}")
-    OrcamentoRequisitoFuncionalidadeResponse findById(@PathVariable Long id);
+    ResponseEntity<OrcamentoRequisitoFuncionalidadeResponse> findById(@PathVariable Long id);
 
     @GetMapping("/orcamento-requisito/{orcamentoRequisitoId}/paginated")
-    Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(
+    ResponseEntity<Page<OrcamentoRequisitoFuncionalidadeResponse>> getPaginated(
             @PathVariable("orcamentoRequisitoId") Long orcamentoRequisitoId,
             Pageable pageable);
 }

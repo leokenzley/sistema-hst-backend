@@ -9,6 +9,7 @@ import br.com.thstec.hsts.services.TarefaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,13 +21,13 @@ public class TarefaController implements TarefaAPI {
     private final TarefaService service;
 
     @Override
-    public TarefaResponse created(TarefaRequest request) {
-        return service.created(request);
+    public ResponseEntity<TarefaResponse> created(TarefaRequest request) {
+        return ResponseEntity.ok(service.created(request));
     }
 
     @Override
-    public TarefaResponse update(Long id, TarefaRequest request) {
-        return service.update(id, request);
+    public ResponseEntity<TarefaResponse> update(Long id, TarefaRequest request) {
+        return ResponseEntity.ok(service.update(id, request));
     }
 
     @Override
@@ -35,26 +36,26 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
-    public TarefaResponse findById(Long id) {
-        return service.findById(id);
+    public ResponseEntity<TarefaResponse> findById(Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @Override
-    public Page<TarefaResponse> getPaginated(
+    public ResponseEntity<Page<TarefaResponse>> getPaginated(
             Pageable pageable,
             String status,
             DisciplinaTipoFuncaoEnum tpFuncao
             ) {
         var statusEnum = Objects.nonNull(status) ? StatusEnum.fromCodigo(status) : null;
-        return service.getPaginated(pageable, statusEnum, tpFuncao);
+        return ResponseEntity.ok(service.getPaginated(pageable, statusEnum, tpFuncao));
     }
 
     @Override
-    public List<TarefaResponse> getListed(String status, DisciplinaTipoFuncaoEnum tpFuncao) {
+    public ResponseEntity<List<TarefaResponse>> getListed(String status, DisciplinaTipoFuncaoEnum tpFuncao) {
         if(status != null && !status.isEmpty()) {
-            return service.getListed(StatusEnum.fromCodigo(status), tpFuncao);
+            return ResponseEntity.ok(service.getListed(StatusEnum.fromCodigo(status), tpFuncao));
         }
-        return service.getListed(null, tpFuncao);
+        return ResponseEntity.ok(service.getListed(null, tpFuncao));
     }
 
 }

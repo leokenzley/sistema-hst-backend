@@ -7,6 +7,7 @@ import br.com.thstec.hsts.services.HistoricoOrcamentoRequisitoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,12 +18,12 @@ public class HistoricoOrcamentoRequisitoController
     private final HistoricoOrcamentoRequisitoService service;
 
     @Override
-    public HistoricoOrcamentoRequisitoResponse create(HistoricoOrcamentoRequisitoRequest request) {
-        return service.create(request);
+    public ResponseEntity<HistoricoOrcamentoRequisitoResponse> create(HistoricoOrcamentoRequisitoRequest request) {
+        return ResponseEntity.ok(service.create(request));
     }
 
     @Override
-    public Page<HistoricoOrcamentoRequisitoResponse> getPaginated(Long orcamentoRequisitoId, Pageable pageable) {
-        return service.getPaginated(orcamentoRequisitoId, pageable);
+    public ResponseEntity<Page<HistoricoOrcamentoRequisitoResponse>> getPaginated(Long orcamentoRequisitoId, Pageable pageable) {
+        return ResponseEntity.ok(service.getPaginated(orcamentoRequisitoId, pageable));
     }
 }

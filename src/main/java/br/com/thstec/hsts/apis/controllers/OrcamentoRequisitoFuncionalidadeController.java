@@ -7,6 +7,7 @@ import br.com.thstec.hsts.services.OrcamentoRequisitoFuncionalidadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,13 +18,13 @@ public class OrcamentoRequisitoFuncionalidadeController
     private final OrcamentoRequisitoFuncionalidadeService service;
 
     @Override
-    public OrcamentoRequisitoFuncionalidadeResponse created(OrcamentoRequisitoFuncionalidadeRequest request) {
-        return service.create(request);
+    public ResponseEntity<OrcamentoRequisitoFuncionalidadeResponse> created(OrcamentoRequisitoFuncionalidadeRequest request) {
+        return ResponseEntity.ok(service.create(request));
     }
 
     @Override
-    public OrcamentoRequisitoFuncionalidadeResponse update(Long id, OrcamentoRequisitoFuncionalidadeRequest request) {
-        return service.update(id, request);
+    public ResponseEntity<OrcamentoRequisitoFuncionalidadeResponse> update(Long id, OrcamentoRequisitoFuncionalidadeRequest request) {
+        return ResponseEntity.ok(service.update(id, request));
     }
 
     @Override
@@ -32,13 +33,13 @@ public class OrcamentoRequisitoFuncionalidadeController
     }
 
     @Override
-    public OrcamentoRequisitoFuncionalidadeResponse findById(Long id) {
-        return service.findById(id);
+    public ResponseEntity<OrcamentoRequisitoFuncionalidadeResponse> findById(Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @Override
-    public Page<OrcamentoRequisitoFuncionalidadeResponse> getPaginated(Long orcamentoRequisitoId, Pageable pageable) {
-        return service.getPaginated(orcamentoRequisitoId, pageable);
+    public ResponseEntity<Page<OrcamentoRequisitoFuncionalidadeResponse>> getPaginated(Long orcamentoRequisitoId, Pageable pageable) {
+        return ResponseEntity.ok(service.getPaginated(orcamentoRequisitoId, pageable));
     }
 }
 
