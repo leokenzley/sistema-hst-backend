@@ -7,6 +7,7 @@ import br.com.thstec.hsts.mappers.SprintMapper;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.sprint.request.SprintRequest;
 import br.com.thstec.hsts.model.sprint.response.SprintResponse;
+import br.com.thstec.hsts.relatorio.SprintReport;
 import br.com.thstec.hsts.repositories.HistoricoOrcamentoRequisitoRepository;
 import br.com.thstec.hsts.repositories.OrcamentoRequisitoRepository;
 import br.com.thstec.hsts.repositories.ProjetoRepository;
@@ -33,6 +34,7 @@ public class SprintServiceImpl implements SprintService {
     private final ProjetoRepository projetoRepository;
     private final OrcamentoRequisitoRepository orcamentoRequisitoRepository;
     private final HistoricoOrcamentoRequisitoRepository historicoOrcamentoRequisitoRepository;
+    private final SprintReport sprintReport;
 
     @Transactional
     @Override
@@ -115,5 +117,14 @@ public class SprintServiceImpl implements SprintService {
     @Override
     public List<SprintResponse> getByProjetoList(Long projectId) {
         return repository.findAllByProjetoIdList(projectId).stream().map(mapper::toResponse).toList();
+    }
+
+    @Override
+    public byte[] gerarPdf(Long id) {
+        try {
+            return sprintReport.gerarPdf(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

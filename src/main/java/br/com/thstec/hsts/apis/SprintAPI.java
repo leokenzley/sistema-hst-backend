@@ -5,6 +5,7 @@ import br.com.thstec.hsts.model.sprint.response.SprintResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,4 +32,7 @@ public interface SprintAPI {
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteById(@PathVariable Long id);
+
+    @GetMapping(value = "/{id}/report/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    ResponseEntity<byte[]> pdf(@PathVariable("id") Long id) throws Exception;
 }

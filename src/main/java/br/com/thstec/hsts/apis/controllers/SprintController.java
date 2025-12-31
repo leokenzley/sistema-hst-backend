@@ -7,6 +7,7 @@ import br.com.thstec.hsts.services.SprintService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,6 +48,14 @@ public class SprintController implements SprintAPI {
     public ResponseEntity<Void> deleteById(Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<byte[]> pdf(Long id) throws Exception {
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=relatorio-sprint.pdf")
+                .body(service.gerarPdf(id));
     }
 }
 

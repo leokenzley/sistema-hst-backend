@@ -20,4 +20,6 @@ public interface SprintService {
     Page<SprintResponse> getByProjectPaginated(Long projectId, Pageable pageable);
 
     List<SprintResponse> getByProjetoList(Long projetoId);
+
+    byte[] gerarPdf(Long id);
 }
