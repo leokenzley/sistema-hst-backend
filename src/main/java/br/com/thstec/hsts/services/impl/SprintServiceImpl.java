@@ -4,7 +4,6 @@ import br.com.thstec.hsts.entities.HistoricoOrcamentoRequisitoEntity;
 import br.com.thstec.hsts.entities.SprintEntity;
 import br.com.thstec.hsts.exceptions.commons.NotFoundException;
 import br.com.thstec.hsts.mappers.SprintMapper;
-import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.sprint.request.SprintRequest;
 import br.com.thstec.hsts.model.sprint.response.SprintResponse;
@@ -21,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,22 +37,18 @@ public class SprintServiceImpl implements SprintService {
     @Transactional
     @Override
     public SprintResponse create(SprintRequest request) {
-        try {
-            SprintEntity entity = mapper.toEntity(request);
-            entity.setProjeto(projetoRepository.findById(request.projetoId())
-                    .orElseThrow(() -> new NotFoundException(SPRINT_NAO_ENCONTRADA)));
-            Optional<SprintEntity> ultimaSprintOptional = repository.findLastSprintByProjetoId(request.projetoId());
+        SprintEntity entity = mapper.toEntity(request);
+        entity.setProjeto(projetoRepository.findById(request.projetoId())
+                .orElseThrow(() -> new NotFoundException(SPRINT_NAO_ENCONTRADA)));
+        Optional<SprintEntity> ultimaSprintOptional = repository.findLastSprintByProjetoId(request.projetoId());
 
-            var created = repository.save(entity);
+        var created = repository.save(entity);
 
-            if(request.migrarReq() && !ultimaSprintOptional.isEmpty()){
-                migraRequisitosNaoValidados(created, ultimaSprintOptional.get());
-            }
-
-            return mapper.toResponse(created);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if(request.migrarReq() && !ultimaSprintOptional.isEmpty()){
+            migraRequisitosNaoValidados(created, ultimaSprintOptional.get());
         }
+
+        return mapper.toResponse(created);
     }
 
     private void migraRequisitosNaoValidados(SprintEntity created, SprintEntity ultimaSprint) {
