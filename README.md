@@ -34,4 +34,4 @@
  - Migrar os requisitos não aprovados para a nova sprint.
 - **TODO** 
    - Atenticação e autorização com o Keycloak da ths.
-   - Gerar relatório
+   - Gerar relatório de planilha finalizada.
