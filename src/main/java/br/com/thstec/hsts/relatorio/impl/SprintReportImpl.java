@@ -13,6 +13,7 @@ import br.com.thstec.hsts.repositories.OrcamentoRequisitoFuncionalidadeRepositor
 import br.com.thstec.hsts.repositories.ProjetoRepository;
 import br.com.thstec.hsts.repositories.SprintRepository;
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Component;
@@ -55,7 +56,9 @@ public class SprintReportImpl implements SprintReport {
                 .map(x-> x.getOrcamentoRequisito().getId())
                 .collect(Collectors.toSet());
 
-        // TODO criar uma listagem com o nome dos requisitos da sprint e o total de hst de cada requisito
+        if(orcReqSet.isEmpty())
+            throw new BusinessException("Sprint não possui requisitos validados");
+
         var sprintResponseCollection =
                 orcReqSet
                         .stream()
@@ -78,12 +81,13 @@ public class SprintReportImpl implements SprintReport {
         params.put("PROJETO_NOME", projeto.getNome());
         params.put("DATA", getDataPeriodoSprint(sprint));
         params.put("TOTAL", getTotalSprint(sprintResponseCollection));
-
+        JRBeanCollectionDataSource dataSource =
+                new JRBeanCollectionDataSource(sprintResponseCollection);
         JasperPrint print =
                 JasperFillManager.fillReport(
                         report,
                         params,
-                        new JREmptyDataSource()
+                        dataSource
                 );
 
         return JasperExportManager.exportReportToPdf(print);
@@ -107,8 +111,9 @@ public class SprintReportImpl implements SprintReport {
 
         var descricaoOpt = orcReqFuncList
                 .stream()
+                .filter(x -> x.getOrcamentoRequisito().getId().equals(id))
                 .findFirst()
-                .filter(x -> x.getOrcamentoRequisito().getId().equals(id)).map(x->x.getOrcamentoRequisito().getRequisito());
+                .map(x->x.getOrcamentoRequisito().getRequisito());
         if(descricaoOpt.isEmpty())
             throw new BusinessException("Descrição não encontrada!");
 
