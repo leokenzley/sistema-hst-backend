@@ -16,4 +16,6 @@ public interface OrcamentoRequisitoService {
     OrcamentoRequisitoResponse findById(Long id);
 
     Page<OrcamentoRequisitoResponse> getPaginated(Pageable pageable);
+
+    OrcamentoRequisitoResponse getSummaryBySprintId(Long sprintId);
 }

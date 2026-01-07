@@ -2,6 +2,7 @@ package br.com.thstec.hsts.services.impl;
 
 import br.com.thstec.hsts.entities.HistoricoOrcamentoRequisitoEntity;
 import br.com.thstec.hsts.entities.SprintEntity;
+import br.com.thstec.hsts.exceptions.commons.BusinessException;
 import br.com.thstec.hsts.exceptions.commons.NotFoundException;
 import br.com.thstec.hsts.mappers.SprintMapper;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
@@ -123,8 +124,10 @@ public class SprintServiceImpl implements SprintService {
     public byte[] gerarPdf(Long id) {
         try {
             return sprintReport.gerarPdf(id);
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        throw new RuntimeException(e);
+    }
     }
 }

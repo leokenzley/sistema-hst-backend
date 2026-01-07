@@ -77,4 +77,9 @@ public class OrcamentoRequisitoServiceImpl implements OrcamentoRequisitoService 
         return repository.findByStatus(StatusEnum.ATIVO, pageable)
                 .map(mapper::toResponse);
     }
+
+    @Override
+    public OrcamentoRequisitoResponse getSummaryBySprintId(Long sprintId) {
+        return null;
+    }
 }

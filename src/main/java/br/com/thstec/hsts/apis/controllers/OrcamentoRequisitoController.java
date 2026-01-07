@@ -41,4 +41,9 @@ public class OrcamentoRequisitoController implements OrcamentoRequisitoAPI {
     public ResponseEntity<Page<OrcamentoRequisitoResponse>> getPaginated(Pageable pageable) {
         return ResponseEntity.ok(service.getPaginated(pageable));
     }
+
+    @Override
+    public ResponseEntity<OrcamentoRequisitoResponse> getSummaryBySprintId(Long sprintId) {
+        return ResponseEntity.ok(service.getSummaryBySprintId(sprintId));
+    }
 }

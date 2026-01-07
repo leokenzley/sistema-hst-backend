@@ -35,3 +35,7 @@
 - **TODO** 
    - Atenticação e autorização com o Keycloak da ths.
    - Gerar relatório de planilha finalizada.
+
+
+## Relatórios
+Sempre gerar o compilado dos relatórios jasper.

@@ -29,4 +29,7 @@ public interface OrcamentoRequisitoAPI {
 
     @GetMapping
     ResponseEntity<Page<OrcamentoRequisitoResponse>> getPaginated(Pageable pageable);
+
+    @GetMapping("/sprint/{sprintId}/summary")
+    ResponseEntity<OrcamentoRequisitoResponse> getSummaryBySprintId(@PathVariable Long sprintId);
 }
