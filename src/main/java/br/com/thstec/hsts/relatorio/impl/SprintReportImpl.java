@@ -1,7 +1,6 @@
 package br.com.thstec.hsts.relatorio.impl;
 
 import br.com.thstec.hsts.entities.OrcamentoRequisitoFuncionalidadeEntity;
-import br.com.thstec.hsts.entities.ProjetoEntity;
 import br.com.thstec.hsts.entities.SprintEntity;
 import br.com.thstec.hsts.exceptions.commons.BusinessException;
 import br.com.thstec.hsts.exceptions.commons.NotFoundException;
@@ -13,16 +12,15 @@ import br.com.thstec.hsts.repositories.OrcamentoRequisitoFuncionalidadeRepositor
 import br.com.thstec.hsts.repositories.ProjetoRepository;
 import br.com.thstec.hsts.repositories.SprintRepository;
 import lombok.RequiredArgsConstructor;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.format.datetime.DateFormatter;
-import org.springframework.stereotype.Component;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;

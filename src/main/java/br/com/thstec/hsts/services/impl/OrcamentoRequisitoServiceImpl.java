@@ -13,6 +13,7 @@ import br.com.thstec.hsts.repositories.SprintRepository;
 import br.com.thstec.hsts.services.OrcamentoRequisitoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -73,13 +74,37 @@ public class OrcamentoRequisitoServiceImpl implements OrcamentoRequisitoService 
     }
 
     @Override
-    public Page<OrcamentoRequisitoResponse> getPaginated(Pageable pageable) {
-        return repository.findByStatus(StatusEnum.ATIVO, pageable)
-                .map(mapper::toResponse);
+    public Page<OrcamentoRequisitoResponse> getPaginated(
+            String status,
+            String requisitoStatus,
+            Long sprintId,
+            Pageable pageable) {
+        var statusEnum = (status != null) ? StatusEnum.fromCodigo(status) : null;
+
+        var requisitoStatusEnum = (requisitoStatus != null) ? RequisitoStatusEnum.valueOf(requisitoStatus) : null;
+
+        var pageOrcEntity = repository.getPaginated(statusEnum, requisitoStatusEnum, sprintId, pageable);
+
+        return new PageImpl<>(
+                pageOrcEntity.getContent().stream().map(mapper::toResponse).toList(),
+                pageable,
+                pageOrcEntity.getTotalElements()
+        );
     }
 
     @Override
     public OrcamentoRequisitoResponse getSummaryBySprintId(Long sprintId) {
         return null;
+    }
+
+    @Override
+    public OrcamentoRequisitoResponse patch(Long id, RequisitoStatusEnum requisitoStatusEnum) {
+        var orc = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Orçamento requisito não encontrado"));
+
+        if(requisitoStatusEnum != null)
+            orc.setRequisitoStatus(requisitoStatusEnum);
+
+        return mapper.toResponse(repository.save(orc));
     }
 }

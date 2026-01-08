@@ -3,6 +3,7 @@ package br.com.thstec.hsts.repositories;
 import br.com.thstec.hsts.entities.OrcamentoRequisitoEntity;
 import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
 import br.com.thstec.hsts.model.enumerations.StatusEnum;
+import br.com.thstec.hsts.model.orcamento_requisito.response.OrcamentoRequisitoResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,15 @@ public interface OrcamentoRequisitoRepository extends JpaRepository<OrcamentoReq
             "where ts.id = :ultimaSprintId " +
             "and tor.requisito_status IN('CRIADO', 'PENDENTE_VALIDACAO') ", nativeQuery = true)
     List<OrcamentoRequisitoEntity> findAllBySprintIdToMigrate(@Param("ultimaSprintId") Long ultimaSprintId);
+
+    @Query(value = "select orc from OrcamentoRequisitoEntity orc join fetch orc.sprint s " +
+            " where (:status is null OR orc.status = :status) " +
+            " and (:requisitoStatus is null OR orc.requisitoStatus = :requisitoStatus) " +
+            " and (:sprintId is null OR s.id = :sprintId) "
+    )
+    Page<OrcamentoRequisitoEntity> getPaginated(
+            @Param("status") StatusEnum status,
+            @Param("requisitoStatus") RequisitoStatusEnum requisitoStatus,
+            @Param("sprintId") Long sprintId,
+            Pageable pageable);
 }

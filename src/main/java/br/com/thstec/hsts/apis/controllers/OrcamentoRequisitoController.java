@@ -1,6 +1,8 @@
 package br.com.thstec.hsts.apis.controllers;
 
 import br.com.thstec.hsts.apis.OrcamentoRequisitoAPI;
+import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.orcamento_requisito.request.OrcamentoRequisitoRequest;
 import br.com.thstec.hsts.model.orcamento_requisito.response.OrcamentoRequisitoResponse;
 import br.com.thstec.hsts.services.OrcamentoRequisitoService;
@@ -38,12 +40,24 @@ public class OrcamentoRequisitoController implements OrcamentoRequisitoAPI {
     }
 
     @Override
-    public ResponseEntity<Page<OrcamentoRequisitoResponse>> getPaginated(Pageable pageable) {
-        return ResponseEntity.ok(service.getPaginated(pageable));
+    public ResponseEntity<Page<OrcamentoRequisitoResponse>> getPaginated(
+            String status,
+            String requisitoStatus,
+            Long sprintId,
+            Pageable pageable) {
+        return ResponseEntity.ok(service.getPaginated(status, requisitoStatus, sprintId, pageable));
     }
 
     @Override
     public ResponseEntity<OrcamentoRequisitoResponse> getSummaryBySprintId(Long sprintId) {
         return ResponseEntity.ok(service.getSummaryBySprintId(sprintId));
     }
+
+    @Override
+    public ResponseEntity<OrcamentoRequisitoResponse> patch(Long id, String requisitoStatus) {
+        var requisitoStatusEnum = (requisitoStatus != null && !requisitoStatus.isEmpty())
+                ? RequisitoStatusEnum.valueOf(requisitoStatus) : null;
+        return ResponseEntity.ok(service.patch(id, requisitoStatusEnum));
+    }
+
 }

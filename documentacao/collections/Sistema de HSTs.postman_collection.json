@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "0c7f22bf-5512-45fa-bc12-86a28d11ea10",
+		"name": "Sistema de HSTs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1717938",
+		"_collection_link": "https://orange-satellite-817724.postman.co/workspace/THS~745512bb-e1f9-4096-b75a-c78dcfe9e3b0/collection/1717938-0c7f22bf-5512-45fa-bc12-86a28d11ea10?action=share&source=collection_link&creator=1717938"
+	},
+	"item": [
+		{
+			"name": "1. ProjetoAPI",
+			"item": [
+				{
+					"name": "Busca By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/projetos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{API_URL}}/v1/projetos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca Paginada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/projetos/paginated?sort=id,DESC&size=100&page=0&status=I",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"projetos",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "id,DESC"
+								},
+								{
+									"key": "size",
+									"value": "100"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "status",
+									"value": "I"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar projetos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Novo projeto teste PUT\",\n  \"detalhe\": \"Novo projeto teste detalhes PUT\",\n  \"status\": \"A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/projetos/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza projetos by id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Novo projeto teste\",\n  \"detalhe\": \"Novo projeto teste detalhes\",\n  \"status\": \"A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/projetos"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. SprintAPI",
+			"item": [
+				{
+					"name": "1. Get By Projeto id Paginado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/sprints/projeto/1/paginated?size=1&sort=numero,ASC",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"sprints",
+								"projeto",
+								"1",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "numero,ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get By Projeto id Lista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/sprints/projeto/1"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get By id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/sprints/1"
+					},
+					"response": []
+				},
+				{
+					"name": "4. Criação de Sprint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"numero\": 4,\n  \"detalhe\": \"Sprint inicial do sistema Qualilab de 2026\",\n  \"dtInicio\": \"2025-12-23\",\n  \"dtFim\": \"2025-12-23\",\n  \"projetoId\": 2,\n  \"status\": \"A\",\n  \"migrarReq\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/sprints"
+					},
+					"response": []
+				},
+				{
+					"name": "5. Atualiza sprint",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero\": 5,\n    \"detalhe\": \"Sprint inicial do sistema Qualilab de 2026 4 \",\n    \"dtInicio\": \"2025-12-24\",\n    \"dtFim\": \"2025-12-24\",\n    \"status\": \"I\",\n    \"projetoId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/sprints/13"
+					},
+					"response": []
+				},
+				{
+					"name": "Report By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/sprints/25/report/pdf"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. DisciplinaAPI",
+			"item": [
+				{
+					"name": "Get Paginated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/disciplinas/paginated?size=100&sort=id,ASC&status=A",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"disciplinas",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "100"
+								},
+								{
+									"key": "sort",
+									"value": "id,ASC"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/disciplinas/23"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{API_URL}}/v1/disciplinas/23"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"descricao\": \"Nova disciplina\",\n  \"tpFuncao\": \"NOVA_FUNCIONALIDADE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/disciplinas"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"descricao\": \"Nova disciplina UPDATED\",\n    \"tpFuncao\": \"NOVA_FUNCIONALIDADE UPDATED\",\n    \"status\": \"I\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/disciplinas/23"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. TarefaAPI",
+			"item": [
+				{
+					"name": "Get By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/tarefas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Paginada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/tarefas/paginated?sort=memoriaCalculo,ASC&page=0&size=100&status=A&tpFuncao=NOVA_FUNCIONALIDADE",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"tarefas",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "memoriaCalculo,ASC"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "100"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								},
+								{
+									"key": "tpFuncao",
+									"value": "NOVA_FUNCIONALIDADE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/tarefas/list?status=A&tpFuncao=NOVA_FUNCIONALIDADE",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"tarefas",
+								"list"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "A"
+								},
+								{
+									"key": "tpFuncao",
+									"value": "NOVA_FUNCIONALIDADE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. OrcamentoRequisitoAPI",
+			"item": [
+				{
+					"name": "Get by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/orcamento-requisitos/10"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Paginated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/orcamento-requisitos?page=0&sort=id,DESC&status=A&requisitoStatus=VALIDADO",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"orcamento-requisitos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "id,DESC"
+								},
+								{
+									"key": "status",
+									"value": "A"
+								},
+								{
+									"key": "requisitoStatus",
+									"value": "VALIDADO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{API_URL}}/v1/orcamento-requisitos/10"
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Requisito Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/orcamento-requisitos/10?requisitoStatus=VALIDADO",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"orcamento-requisitos",
+								"10"
+							],
+							"query": [
+								{
+									"key": "requisitoStatus",
+									"value": "VALIDADO",
+									"description": "CRIADO, PENDENTE_VALIDACAO, VALIDADO, COBRADO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sprintId\": 25,\n  \"requisito\": \"[RF222-D] Outro Requisito Aqui\",\n  \"detalhe\": \"Aqui o texto descritivo do requisito\",\n  \"dtInicio\": \"2025-12-30\",\n  \"dtFim\": \"2026-01-06\",\n  \"dtFinalizada\": null,\n  \"status\": \"A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/orcamento-requisitos"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sprintId\": 1,\n    \"sprintNumero\": 1,\n    \"requisito\": \"[RF256-D] Criação de botão de busca de usuário pelo CPFs\",\n    \"detalhe\": \"Aqui o texto descritivo do requisito\",\n    \"dtInicio\": \"2025-12-30\",\n    \"dtFim\": \"2025-12-30\",\n    \"dtFinalizada\": \"2025-12-30\",\n    \"status\": \"A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/orcamento-requisitos/10"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. HistoricoOrcamentoRequisitoAPI",
+			"item": [
+				{
+					"name": "Get Paginated By Orcamento Requisito ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{API_URL}}/v1/historico-orcamento-requisitos/orcamento-requisito/6/paginated"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7. OrcamentoRequisitoFuncionalidadeAPI",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orcamentoRequisitoId\": 11,\n  \"tarefaId\": 57,\n  \"observacao\": \"Criando endpoint de cadastro\",\n  \"comprovante\": \"aqui vai o link do PR ...\",\n  \"quantidadeHoras\": 5,\n  \"valorFinal\": 150,\n  \"status\": \"A\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/orcamentos-requisitos-funcionalidades"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orcamentoRequisitoId\": 6,\n  \"tarefaId\": 57,\n  \"observacao\": \"Criando endpoint de busca por qualquer coisa\",\n  \"comprovante\": \"aqui vai o link do PR\",\n  \"quantidadeHoras\": 57,\n  \"valorFinal\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{API_URL}}/v1/orcamentos-requisitos-funcionalidades/6"
+					},
+					"response": []
+				},
+				{
+					"name": "Get paginated by Orcamento Requisito ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/v1/orcamentos-requisitos-funcionalidades/orcamento-requisito/6/paginated?page=0&size=100&sort=id,DESC",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"v1",
+								"orcamentos-requisitos-funcionalidades",
+								"orcamento-requisito",
+								"6",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "100"
+								},
+								{
+									"key": "sort",
+									"value": "id,DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

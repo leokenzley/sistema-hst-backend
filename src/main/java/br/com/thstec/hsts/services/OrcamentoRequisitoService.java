@@ -1,5 +1,7 @@
 package br.com.thstec.hsts.services;
 
+import br.com.thstec.hsts.model.enumerations.RequisitoStatusEnum;
+import br.com.thstec.hsts.model.enumerations.StatusEnum;
 import br.com.thstec.hsts.model.orcamento_requisito.request.OrcamentoRequisitoRequest;
 import br.com.thstec.hsts.model.orcamento_requisito.response.OrcamentoRequisitoResponse;
 import org.springframework.data.domain.Page;
@@ -15,7 +17,14 @@ public interface OrcamentoRequisitoService {
 
     OrcamentoRequisitoResponse findById(Long id);
 
-    Page<OrcamentoRequisitoResponse> getPaginated(Pageable pageable);
+    Page<OrcamentoRequisitoResponse> getPaginated(
+            String status,
+            String requisitoStatus,
+            Long sprintId,
+            Pageable pageable);
 
     OrcamentoRequisitoResponse getSummaryBySprintId(Long sprintId);
+
+    OrcamentoRequisitoResponse patch(Long id, RequisitoStatusEnum requisitoStatusEnum);
+
 }
